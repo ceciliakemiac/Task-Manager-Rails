@@ -31,6 +31,11 @@ RSpec.describe User, type: :model do
   end
 
   describe '#generate_auth_token!' do
+    it 'before_create will be called' do
+      an_user = create(:user)
+      expect(an_user.auth_token).not_to be_nil
+    end
+
     it 'generates an unique auth token' do
       allow(Devise).to receive(:friendly_token).and_return('abc123TOKEN')
       user.generate_auth_token!
