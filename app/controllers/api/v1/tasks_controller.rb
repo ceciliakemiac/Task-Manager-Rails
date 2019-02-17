@@ -14,4 +14,21 @@ class Api::V1::TasksController < ApplicationController
             render status: 404
         end
     end
+
+    def create
+        #task = current_user.task.build(task_params)
+        task = Task.new(task_params)
+        task.user_id = current_user.id
+        if task.save
+            render json: task, status: 201
+        else
+            render json: { errors: task.errors }, status: 422
+        end
+    end
+
+    private 
+
+    def task_params
+        params.require(:task).permit(:title, :description, :deadline, :done)
+    end
 end
