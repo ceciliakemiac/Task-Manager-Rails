@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
 
   #   it { expect(user).not_to be_valid }
   # end
-
+  
   # it {expect(user).to respond_to(:email)}
   # it {is_expected.to respond_to(:password)}
   # it {expect(user).to respond_to(:password_confirmation)}
