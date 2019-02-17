@@ -26,4 +26,33 @@ RSpec.describe 'Task API' do
             expect(json_body['tasks'].count).to eq(5)
         end
     end
+
+    describe 'GET /tasks/:id' do
+        let(:task) { create(:task, user_id: user.id) }
+        let(:task_id) { task.id }
+        
+        before do
+            get "/tasks/#{task.id}", :params => {}, :headers => headers
+        end
+
+        context 'when the task exists' do
+            it 'returns status code 200' do
+                expect(response).to have_http_status(200)
+            end
+    
+            it 'returns the json data for the task' do
+                expect(json_body['title']).to eq(task.title)
+            end
+        end
+
+        context 'when the task not exists' do
+            before do
+                get "/tasks/250", :params => {}, :headers => headers
+            end
+
+            it 'return status code 404' do
+                expect(response).to have_http_status(404)
+            end
+        end
+    end
 end
