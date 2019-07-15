@@ -3,7 +3,7 @@ FactoryBot.define do
         title { Faker::Lorem.sentence }
         description { Faker::Lorem.paragraph }
         deadline { Faker::Date.forward }
-        done false
+        done { false }
         user
     end
 end
